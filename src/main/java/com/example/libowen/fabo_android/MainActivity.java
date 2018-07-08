@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.libowen.fabo_android.Algorithm.InsertSort;
 import com.example.libowen.fabo_android.Algorithm.MergeSort;
+import com.example.libowen.fabo_android.Algorithm.SelectionSort;
 import com.example.libowen.fabo_android.Until.TimeUntil;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -17,33 +20,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
 
-//        TextMessage message = new TextMessage();
-//        message.setRequestMethod(TextMessage.REQUEST_METHOD_GET);
-//        message.setMediaTypeMarkdown("application/json; charset=utf-8");
-//        message.setUrl("http://www.kuwo.cn/bd/search/musicSearch?key=林俊杰&bdfrom=xpjqr&c=qmtcweap90pj&rn=30&pn=3");
-//        message.setConnectTimeout(10);
-//        getUpLoadLogRootUrl();
-
 
         TimeUntil.funTimeToCalculate(new TimeUntil.CallBack() {
             @Override
             public void longTimeOperation() {
-                int[] arr = {9,8,1,3,5,2};
-                MergeSort.mergeSort(arr,0,arr.length - 1);
-                Log.e(TAG, "onCreate: " + Arrays.toString(arr));
+                int[] arr = randomArr(500000);
+//                int[] arr = {9,8,6,1,4,2};
+//               InsertSort.sort(arr,2,4);
+                MergeSort.sort(arr, 0, arr.length - 1);
+//                Log.e(TAG, "onCreate: " + Arrays.toString(arr));
             }
         });
     }
 
-    //    private void getUpLoadLogRootUrl() {
-//        String ROOT_PATH = Environment.getExternalStorageDirectory() + "/efrobot/" + "robot_url_out.config";
-//        File filePath = new File(ROOT_PATH);
-//        if (filePath.exists()) {
-//            Log.d(TAG, "getUpLoadLogRootUrl: ");
-//        } else {
-//            Log.d(TAG, "getUpLoadLogRootUrl: ");
-//        }
-//    }
-
+    public int[] randomArr(int length) {
+        int[] arr = new int[length];
+        int i = 0;
+        for (int value : arr) {
+            Random random = new Random();
+            arr[i] = random.nextInt(length) + 1;
+            i++;
+        }
+        return arr;
+    }
 }
 

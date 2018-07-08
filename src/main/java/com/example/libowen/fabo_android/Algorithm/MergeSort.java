@@ -5,13 +5,30 @@ package com.example.libowen.fabo_android.Algorithm;
  */
 
 public class MergeSort {
-    public static void mergeSort(int arr[],int left,int right) {
+    public static void sort(int arr[],int left,int right) {
+//        if (right - left <= 15) {
+//            InsertSort.sort(arr,left,right);
+//            return;
+//        }
         if (left >= right)
             return;
         int mid = (left + right) / 2;
-        mergeSort(arr,left,mid);
-        mergeSort(arr,mid + 1,right);
+        sort(arr,left,mid);
+        sort(arr,mid + 1,right);
+        if (arr[mid] > arr[mid + 1])
         merge(arr,left,mid,right);
+    }
+
+    /**
+     * 自底向上的归并排序
+     */
+    private static void sortBU(int[] arr, int n) {
+        if (n > arr.length) return;
+        for (int size = 1; size < n; size += size) {
+            for (int i = 0; i + size < n; i += size + size) {
+                merge(arr,i,i + size - 1,Math.min(i + size + size - 1,n - 1));
+            }
+        }
     }
 
     private static void merge(int[] arr,int left,int mid,int right) {
